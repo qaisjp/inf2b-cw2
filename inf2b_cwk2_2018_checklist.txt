@@ -1,0 +1,118 @@
+%
+% 1.4  2018/03/30 17:46:16
+%
+
+This checklist consists of the following three sections.
+  Section 1: Directory structure in your submission
+  Section 2: Files to submit
+  Section 3: Contents of reports
+
+===== Section 1 Directory structure ====================================
+
+All the files for Inf2b CW2 submission should be saved in the directory
+named "LearnCW", whose directory structure should be as follows.
+
+|-- LearnCW 
+   |-- report_task1.pdf
+   |-- report_task2.pdf
+   |-- report_task3.pdf
+   |-- Task1
+      |-- (all files for Task1 except the report)
+   |-- Task2
+      |-- (all files for Task2 except the report)
+   |-- Task3
+      |-- (all files for Task3 except the report)
+
+  NB: * Please do NOT include the provided data set file (data.mat).
+      * Helper functions you created may be placed in the corresponding task
+        directory or its parent directory, i.e., LearnCW. 
+      * Directory and file names are case sensitive. Those in your
+        submission should be exactly the same as specified.
+
+===== Section 2 Files to submit ====================================
+
+NB:
+ - The following list shows the minimal set of files that you need to
+   submit, and it does not include other relevant files you created, which you
+   are also required to submit.
+ - For Python users, replace the Matlab function/script file extension ".m"
+   with ".py".  Those files with ".mat" extension are of Matlab MAT-file,
+   whose format you should follow.
+ - Matlab template files for some of the functions to submit are available in
+      /afs/inf.ed.ac.uk/group/teaching/inf2b/cwk2/matlab_codes
+   Please make sure your code follows the function syntax defined in
+   the templates. 
+   For Python, replace 'matlab_codes' in the above path with 'python_codes'.
+ - Do not include the provided data set file in your submission.
+   In your code, use the absolute path name for the data set file in DICE.
+
+------------- Task 1 ---------------------
+     (* Do NOT include data.mat)
+     [] LearnCW/report_task1.pdf
+Task 1.1:
+     [] LearnCW/Task1/my_knn_classify.m
+Task 1.2:
+     [] LearnCW/Task1/my_confusion.m
+Task 1.3:
+     [] LearnCW/Task1/my_knn_system.m
+     [] LearnCW/Task1/{cm1.mat,cm3.mat,cm5.mat,cm10.mat,cm20.mat}
+Task 1.4:
+     None
+
+------------- Task 2 ---------------------
+     (* Do NOT include data.mat)
+     [] LearnCW/report_task2.pdf
+Task 2.1:
+     [] LearnCW/Task2/my_bnb_classify.m
+Task 2.2:
+     [] LearnCW/Task2/my_bnb_system.m
+     [] LearnCW/Task2/cm.mat
+Task 2.3:
+     None
+
+------------- Task 3 ---------------------
+     (* Do NOT include data.mat)
+     [] LearnCW/report_task3.pdf
+Task 3.1:
+     [] LearnCW/Task3/my_gaussian_classify.m
+Task 3.2:
+     [] LearnCW/Task3/my_gaussian_system.m
+     [] LearnCW/Task3/cm.mat
+     [] LearnCW/Task3/m26.mat
+     [] LearnCW/Task3/cov26.mat
+Task 3.3
+     [] LearnCW/Task3/my_improved_gaussian_classify.m
+     [] LearnCW/Task3/my_improved_gaussian_system.m
+     [] LearnCW/Task3/cm_improved.mat
+
+===== Section 3 Contents of your reports =================================
+
+-- Contents of report_task1.pdf --
+Your UUN and the task name (i.e. Task 1) at the top of the first page
+Task 1.1: none
+Task 1.2: none
+Task 1.3: Report the result of experiment with respect to:
+  - User time taken (on DICE) for my_knn_classify() in seconds.
+  - k, N, Nerrs, and acc for each number of nearest neighbours defined
+    in kb (i.e. [1,3,5,10,20]). The information should be summarised in a table.
+Task 1.4: Explain your implementation for speeding up (See the instructions in the assignment) 
+
+-- Contents of report_task2.pdf --
+Your UUN and the task name (i.e. Task 2) at the top of the first page
+Task 2.1: none
+Task 2.2: none
+Task 2.3: Report the result of experiment with respect to:
+  - User time taken (on DICE) for my_bnb_classify() in seconds.
+  - N, Nerrs, and acc (in a table).
+Task 2.3: Report your investigation and findings (See the instructions
+          in the assignment), including brief discussions.
+
+-- Contents of report_task3.pdf --
+Your UUN and the task name (i.e. Task 3) at the top of the first page
+Task 3.1: none
+Task 3.2: Report the result of experiment with respect to:
+  - User time taken (on DICE) for my_bnb_classify() in seconds.
+  - N, Nerrs, and acc (in a table).
+Task 3.3: Report your investigation and findings (See the instructions
+          in the assignment), including discussions.
+

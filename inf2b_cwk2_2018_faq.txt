@@ -1,0 +1,158 @@
+# 1.7  2018/03/30 17:52:47
+
+---- General questions ------------------------------------------------
+Q: How can I display the images of characters in the data set?
+A: There is a Matlab sample function:
+    /afs/inf.ed.ac.uk/group/teaching/inf2b/cwk2/matlab_codes/dispImage.m
+
+Q: Are there any templates for the functions/scripts I should submit?
+   Yes, please see:
+     /afs/inf.ed.ac.uk/group/teaching/inf2b/cwk2/matlab_codes (for Matlab)
+     /afs/inf.ed.ac.uk/group/teaching/inf2b/cwk2/python_codes (for Python)
+   
+Q: How should I measure the user time taken?
+A: Ideally it should be measured with a function equivalent to the UNIX/Linux 
+   time command (/usr/bin/time), which gives three measurements - 'real time',
+   'user CPU time', and 'system time', where 'user CPU time' is the
+   one requested in the coursework. However, none of Matlab time
+   measurement functions seem to be equivalent to the time command.
+   Thus, please use 'tic' and 'toc' for Matlab.
+   For Python, please use time.clock().
+
+   Please note that user time should be measured on a DICE machine.
+   If you have measured the time on a non-DICE machine, e.g. your
+   laptop, and you have no time to try a DICE machine, it is fine that
+   report the time in your report, but please indicate so, and
+   describes the computing enviroment you used.
+
+Q: I get a (slightly) different user time every time I measure. Should
+   I take the average? 
+A: No, it is not necessary for this coursework - it's fine that you
+   measure the time only once, and report it. 
+
+---- Submissions ------------------------------------------------------
+Q: Are we restricted to submitting only the files described in the
+   assignment or can we make separate functions and turn them all in?
+A: The latter. Please submit all pieces of your code including those
+   for helper functions, so that markers can run your code. 
+
+Q: What should I submit?
+   Read the coursework specifications first, and the checklist:
+     http://www.inf.ed.ac.uk/teaching/courses/inf2b/coursework/inf2b_cwk2_2018_checklist.txt
+
+---- Task 1 -----------------------------------------------------------
+Q: My k-NN code takes hours to finish...
+   How k-NN classification can be implemented efficiently?
+   
+A: K-NN requires the calculation of Euclidean distances between each
+   pair of data points in a test set and those in a training set, which
+   is the main bottleneck when data sets are large.
+
+   The key technique for accelerating the run time of your Matlab or
+   Python code is vectorisation. Generally speaking, the more number
+   of data points you put into a vector or matrix and the more you
+   reduce for-loops, the faster your code runs (as long as sufficient
+   amount of memory is available).   
+
+ Details:
+   We assume that a test data set X is a N-by-D matrix, and a training
+   data set Y is a M-by-D matrix, where N is the number of test
+   instances, M is the number of training instances, and D is the
+   dimension of the feature vector space.  
+
+         / X_1 \      / x_{11} ... x_{1D} \  
+   X =  |   .   | =  |    .           .    |       ... Test data set   
+        |   .   |    |    .           .    |
+         \ X_N /      \ x_{N1} ... x_{ND} /
+
+         / Y_1 \      / y_{11} ... y_{1D} \
+   Y =  |   .   | =  |    .           .    |      .... Training data set
+        |   .   |    |    .           .    |
+         \ Y_M /      \ y_{M1} ... y_{MD} /
+
+   where X_i = (x_{i1}, ..., x_{iD}) denotes the i-th test data, and
+         Y_j = (y_{j1}, ..., y_{jD}) denotes the j-th training data.
+
+   (NB: Here, we use a row vector to denote the feature vector of a data,
+        as opposed to a column vector in Inf2b lectures and notes) 
+   (Notation: '_' is used here for subscripts, '^' for superscripts, like LaTeX)
+
+   The (squared) Euclidean distance d_{ij} is given as
+      d_{ij} = || X_i - Y_j ||^2 = (X_i - Y_j) * (X_i - Y_j)^T
+
+   In k-NN, for each test data instance X_i, we need to calculate
+         d_{i1}, ..., d_{iM}, 
+   to find the k closest data points in Y, so that, for all test instances,
+   we calculate distance matrix DI of N-by-M:
+            / d_{11} ... d_{1M} \
+      DI = |    .          .     |
+           |    .          .     |
+            \ d_{N1} ... d_{NM} /
+
+   In Matlab, DI can be efficiently computed with pdist2() function, e.g.
+      DI = pdist2(X, Y, 'squaredeuclidean');
+   in Python,
+      DI = scipy.spatial.distance.cdist(X, Y, 'sqeuclidean') .
+   However, this coursework does not allow you to use those functions,
+   but ask you to implement similar functions of your own. The following
+   outlines how it can be done. 
+ 
+   At first, note that d_{ij} can be decomposed in the following manner.
+     d_{ij} = (X_i - Y_j) * (X_i - Y_j)^T
+            = X_i * X_i^T - 2 X_i * Y_j^T + Y_j * Y_j^T
+            
+   Let       / X_1 * X_1^T \            / Y_1 * Y_1^T \
+       XX = |      .        | ,   YY = |      .        | ,
+            |      .        |          |      .        |
+             \ X_N * X_N^T /            \ Y_M * Y_M^T /
+
+   so that XX and YY are N-by-1 and M-by-1 matrices, respectively.
+   Then DI can be obtained with standard matrix operations:
+
+     DI = (XX,...,XX) - 2 * X * Y^T + (YY,...,YY)^T
+           <-- M -->                   <-- N -->
+
+   In Matlab, repmat() can be used to repeat copies of matrix.
+
+   If the size of DI is too large for your computer to handle, and
+   causing a lot of memory swapping in your machine, consider defining
+   the matrix as a single precision variable rather than double.
+   
+   Further speed-up is possible if you discard terms that are not
+   relevant to classification.
+
+ Debugging tips:
+   Coding for vectorisation is sometimes tricky and potentially buggy.
+   Make sure, using a small number of samples, that your vectorised
+   code gives the same distance as the one without vectorisation.
+
+Q: Task1.3 implicitly requests us to name the variables dynamically for
+   confusion matrices, which is not recommended generally.
+A: You are right. The specification has been modified, so that you can
+   use the same variable name 'cm' to save a confusion matrix to
+   a file named 'cmk.mat', where k is the number of nearest neighbours.
+   In case that you've implemented dynamic variables already, you do
+   not need to change the code to meet this new specification.
+
+---- Task 2 -----------------------------------------------------------
+Q: Can I use the add-one smoothing?
+A: Yes, if you'd like to, but please indicate it in your report.
+
+Q: What should I do with the problem with log(0) = -infinity?
+   (which makes the following calculation/operations useless)
+A: You can avoid the issue by replacing 0 with a very small
+   number, e.g. 1.0E-10.
+
+---- Task 3 -----------------------------------------------------------
+Q: How can I calculate covariance matrices using vectorisation?
+A: See the lecture slides for Lecture 8.
+
+Q: What should I do with the zero determinant of a covariance matrix?
+A: Please try the logdet() function provided in the course directory.
+
+Q: Which type of covariance matrix should I use - the one normalised
+   by N or N-1? 
+A: Please use the one normalised by N, because MLE is assumed.
+
+Q: How many different approaches should I try for Task3.3?
+A: See https://piazza.com/class/jc7iuf9dssg44f?cid=252

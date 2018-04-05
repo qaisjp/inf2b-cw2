@@ -10,7 +10,7 @@ from my_confusion import *
 
 # Load the data set
 #   NB: replace <UUN> with your actual UUN.
-filename = "/afs/inf.ed.ac.uk/group/teaching/inf2b/cwk2/d/<UUN>/data.mat";
+filename = "/afs/inf.ed.ac.uk/group/teaching/inf2b/cwk2/d/s1620208/data.mat";
 data = scipy.io.loadmat(filename);
 
 # Feature vectors: Convert uint8 to double, and divide by 255.

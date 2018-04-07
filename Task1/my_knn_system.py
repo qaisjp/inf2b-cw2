@@ -8,26 +8,37 @@ from my_knn_classify import *
 
 from my_confusion import *
 
-# Load the data set
-#   NB: replace <UUN> with your actual UUN.
-filename = "/afs/inf.ed.ac.uk/group/teaching/inf2b/cwk2/d/s1620208/data.mat";
-data = scipy.io.loadmat(filename);
+Xtrn = None
+Xtst = None
+Ctrn = None
+Ctst = None
 
-# Feature vectors: Convert uint8 to double, and divide by 255.
-Xtrn = data['dataset']['train'][0,0]['images'][0,0].astype(dtype=np.float_) /255.0
-Xtst = data['dataset']['test'][0,0]['images'][0,0].astype(dtype=np.float_) /255.0
-# Labels : convert float64 to integer, and subtract 1 so that class number starts at 0 rather than 1.
-Ctrn = data['dataset']['train'][0,0]['labels'][0,0].astype(dtype=np.int_).flatten()-1
-Ctrn = Ctrn.reshape((Ctrn.size, 1))
-Ctst = data['dataset']['test'][0,0]['labels'][0,0].astype(dtype=np.int_).flatten()-1
-Ctst = Ctst.reshape((Ctst.size, 1))
+def load_dataset():
+    global Xtrn, Xtst, Ctrn, Ctst
+
+    # Load the data set
+    #   NB: replace <UUN> with your actual UUN.
+    filename = "/afs/inf.ed.ac.uk/group/teaching/inf2b/cwk2/d/s1620208/data.mat";
+    data = scipy.io.loadmat(filename);
+
+    # Feature vectors: Convert uint8 to double, and divide by 255.
+    Xtrn = data['dataset']['train'][0,0]['images'][0,0].astype(dtype=np.float32) /255.0
+    Xtst = data['dataset']['test'][0,0]['images'][0,0].astype(dtype=np.float32) /255.0
+    # Labels : convert float64 to integer, and subtract 1 so that class number starts at 0 rather than 1.
+    Ctrn = data['dataset']['train'][0,0]['labels'][0,0].astype(dtype=np.int_).flatten()-1
+    Ctrn = Ctrn.reshape((Ctrn.size, 1))
+    Ctst = data['dataset']['test'][0,0]['labels'][0,0].astype(dtype=np.int_).flatten()-1
+    Ctst = Ctst.reshape((Ctst.size, 1))
 
 #YourCode - Prepare measuring time
 
 # Run K-NN classification
-kb = [1,3,5,10,20];
-Cpreds = my_knn_classify(Xtrn, Ctrn, Xtst, kb)
+def run_classification():
+    kb = [1,3,5,10,20];
+    Cpreds = my_knn_classify(Xtrn, Ctrn, Xtst, kb)
 
+load_dataset()
+run_classification()
 #YourCode - Measure the user time taken, and display it.
 
 #YourCode - Get confusion matrix and accuracy for each k in kb.

@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from scipy import stats
 
 def my_knn_classify(Xtrn, Ctrn, Xtst, Ks):
     # type: (np.float_, np.int_, np.float_, float[]) -> np.int_
@@ -15,6 +16,25 @@ def my_knn_classify(Xtrn, Ctrn, Xtst, Ks):
     np.random.seed(2)
     print("Running dot product")
 
+    DI = MySqDist(Xtrn, Xtst)
+
+    maxK = max(Ks) # -1 because if we wanted 1 nearest neighbours, that would be index 0
+
+    idx = DI.argpartition(maxK, axis=1)[:, :maxK]
+
+    rows, _ = idx.shape
+    columns = len(Ks)
+
+    # modes = np.zeros((rows, columns))
+    # for i in range(len(Ks)):
+    #     k = Ks[i]
+    #
+    #     # set column i to the mode of each row (mode of the least k columns in idx)
+    #     modes[:, i] = stats.mode(idx.argpartition(k, axis=1)[:,:k], axis=1)[0][:, 0]
+
+    # print(modes)
+
+    
     # np.dot(Xtrn, Xtrn.T)
     print "Done!2"
     Cpreds = None
@@ -29,17 +49,11 @@ def my_knn_classify(Xtrn, Ctrn, Xtst, Ks):
 #     print(len(Y), len(YY ))
 #     return XX - 2 * np.dot(X, Y.T) + YY
 
-def MySqDist(X, Y):
-    print "MySqDist1"
+def MySqDist(Y, X):
     XX = (X ** 2).sum(axis=1)[:, np.newaxis]
-    YY = (Y ** 2).sum(axis=1)[:, np.newaxis]
+    YY = (Y ** 2).sum(axis=1)[np.newaxis, :]
 
-    print ""
-    print(X)
-    print ""
-    print(Y.T)
-
-    return XX - 2 * (X*Y.T) + YY
+    return XX - 2 * X.dot(Y.T) + YY
 
 
 def MySqDist_first(U, v):

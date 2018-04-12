@@ -31,8 +31,8 @@ def my_confusion(Ctrues, Cpreds):
     # where the row/column combination is the count for the combination
     # with row=trues, and column=preds
     for a, p in zip(Ctrues, Cpreds):
-        CM[a][p] += 1
+        CM[a,p] += 1
 
-    acc = (Ctrues == Cpreds).sum(dtype=float) / len(Ctrues)
+    acc = np.sum(Cpreds == Ctrues, dtype=float) / len(Ctrues)
 
     return (CM, acc)

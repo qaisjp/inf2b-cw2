@@ -58,7 +58,7 @@ def run():
 
         #YourCode - Save each confusion matrix.
         filename = 'cm%d' % k
-        sio.savemat(filename, {filename: CM})
+        sio.savemat(filename, {filename: CM}, oned_as="row")
 
         #YourCode - Display the required information - k, N, Nerrs, acc for each element of kb
         print "%d\t\t%d\t\t%d\t\t%f" % (

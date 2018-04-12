@@ -42,8 +42,11 @@ def my_knn_classify(Xtrn, Ctrn, Xtst, Ks):
         # if k < idx.shape[1]: # we can't subpartition on the final size
         #     subpartition = idx.argpartition(k, axis=1)[:,:k]
 
-        # label the subpartitions
-        labelled = Ctrn[:, 0][idx[:, :k]]
+        # get the first k items
+        partition = idx[:, :k]
+
+        # label the partition
+        labelled = Ctrn[:, 0][partition]
 
         # get mode of each labelled row
         columnMode = stats.mode(labelled, axis=1)[0][:, 0]

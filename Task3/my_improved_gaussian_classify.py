@@ -9,5 +9,5 @@ def my_improved_gaussian_classify(Xtrn, Ctrn, Xtst):
     #  Cpreds : N-by-L ndarray of predicted labels for Xtst (dtype=np.int_)
 
     #YourCode
-
+    Cpreds = None
     return Cpreds

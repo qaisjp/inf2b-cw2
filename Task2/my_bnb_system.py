@@ -46,3 +46,16 @@ print "%d\t\t%d\t\t%f" % (
     len(Ctst) * (1-acc),
     acc
 )
+
+# t = np.zeros((250, 1))
+# for threshold in range(2, 250, 20):
+#     print "Threshold:\t%f" % threshold
+#     Cpreds = my_bnb_classify(Xtrn, Ctrn, Xtst, threshold)
+
+#     #YourCode - Get a confusion matrix and accuracy
+#     _, acc = my_confusion(Ctst, Cpreds)
+
+#     #YourCode - Save the confusion matrix as "Task2/cm.mat".
+#     t[threshold] = acc
+
+# sio.savemat('plot.mat', {'thresholds': t}, oned_as='row')

@@ -19,6 +19,9 @@ def my_confusion(Ctrues, Cpreds):
     #   CM : K-by-K ndarray of confusion matrix, where CM[i,j] is the number of samples whose target is the ith class that was classified as j (dtype=np.int_)
     #   acc : accuracy (i.e. correct classification rate) (type=float)
     #
+    Ctrues = Ctrues[:,0]
+    Cpreds = Cpreds[:,0]
+
     k = len(np.bincount(Ctrues))
 
     CM = np.zeros((k, k))

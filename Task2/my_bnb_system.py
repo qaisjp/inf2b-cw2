@@ -5,10 +5,11 @@ import numpy as np
 import scipy.io as sio
 import time
 from my_bnb_classify import *
+from my_confusion import *
 
 # Load the data set
 #   NB: replace <UUN> with your actual UUN.
-filename = "/afs/inf.ed.ac.uk/group/teaching/inf2b/cwk2/d/s1620208/data.mat";
+filename = "../data.mat";
 data = sio.loadmat(filename);
 
 # Feature vectors: Convert uint8 to double   (but do not divide by 255)
@@ -32,7 +33,15 @@ timeTaken = time.clock() - startTime
 print "Time taken: %f seconds" % timeTaken
 
 #YourCode - Get a confusion matrix and accuracy
+CM, acc = my_confusion(Ctst, Cpreds[:,0])
 
 #YourCode - Save the confusion matrix as "Task2/cm.mat".
+sio.savemat('cm.mat', {'cm': CM}, oned_as='row')
 
 #YourCode - Display the required information - N, Nerrs, acc.
+print "N\t\tNerrs\t\tacc"
+print "%d\t\t%d\t\t%f" % (
+    len(Ctst),
+    len(Ctst) * (1-acc),
+    acc
+)

@@ -54,7 +54,7 @@ def run():
         k = kb[i]
 
         #YourCode - Get confusion matrix and accuracy for each k in kb.
-        CM, acc = my_confusion(Ctst[:,0], Cpreds[:,i])
+        CM, acc = my_confusion(Ctst, Cpreds[:,i][:, np.newaxis])
 
         #YourCode - Save each confusion matrix.
         filename = 'cm%d' % k

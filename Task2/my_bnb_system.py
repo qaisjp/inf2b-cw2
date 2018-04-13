@@ -26,11 +26,12 @@ startTime = time.clock()
 
 # Run classification
 threshold = 1.0
+print "Threshold:\t%f" % threshold
 Cpreds = my_bnb_classify(Xtrn, Ctrn, Xtst, threshold)
 
 #YourCode - Measure the user time taken, and display it.
 timeTaken = time.clock() - startTime
-print "Time taken: %f seconds" % timeTaken
+print "Time taken:\t%f seconds" % timeTaken
 
 #YourCode - Get a confusion matrix and accuracy
 CM, acc = my_confusion(Ctst, Cpreds)
@@ -39,7 +40,7 @@ CM, acc = my_confusion(Ctst, Cpreds)
 sio.savemat('cm.mat', {'cm': CM}, oned_as='row')
 
 #YourCode - Display the required information - N, Nerrs, acc.
-print "N\t\tNerrs\t\tacc"
+print "\nN\t\tNerrs\t\tacc"
 print "%d\t\t%d\t\t%f" % (
     len(Ctst),
     len(Ctst) * (1-acc),

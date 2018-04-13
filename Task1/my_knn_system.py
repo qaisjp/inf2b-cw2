@@ -47,7 +47,7 @@ def run():
 
     #YourCode - Measure the user time taken, and display it.
     timeTaken = time.clock() - startTime
-    print "Time taken: %d seconds" % timeTaken
+    print "Time taken: %f seconds" % timeTaken
 
     print "k\t\tN\t\tNerrs\t\tacc"
     for i in range(len(kb)):

@@ -16,7 +16,7 @@ def my_knn_classify(Xtrn, Ctrn, Xtst, Ks):
     np.random.seed(2)
 
     # print("Running MySqDist")
-    DI = MySqDist(Xtrn, Xtst)
+    DI = MySqDist(Xtst, Xtrn)
     # print("Done with MySqDist")
 
     maxK = max(Ks) # -1 because if we wanted 1 nearest neighbours, that would be index 0
@@ -67,7 +67,7 @@ def my_knn_classify(Xtrn, Ctrn, Xtst, Ks):
 #     print(len(Y), len(YY ))
 #     return XX - 2 * np.dot(X, Y.T) + YY
 
-def MySqDist(Y, X):
+def MySqDist(X, Y):
     XX = (X ** 2).sum(axis=1)[:, np.newaxis]
     YY = (Y ** 2).sum(axis=1)[np.newaxis, :]
 

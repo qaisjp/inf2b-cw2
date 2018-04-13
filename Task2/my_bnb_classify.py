@@ -31,11 +31,12 @@ def my_bnb_classify(Xtrn, Ctrn, Xtst, threshold):
         
         probs[1][k] = Xtrn_binarised[row_indices].sum(axis=0) / len(row_indices)
 
-        # add smallest possible number to prevent issues with using 0
-        probs[1][k][probs[1][k] == 0] = epsilon
+    # add smallest possible number to prevent issues with using 0
+    # this used to be in the above for loop too
+    probs[1][probs[1] == 0] = epsilon
         
-        # or replace probs[0] = 1 - probs[1] later on??
-        probs[0][k] = 1 - probs[1][k]
+    # this used to be in the above for loop
+    probs[0] = 1 - probs[1]
 
     testLen = len(Xtst)
     Cprobs = np.zeros((testLen, classes))

@@ -33,7 +33,7 @@ timeTaken = time.clock() - startTime
 print "Time taken: %f seconds" % timeTaken
 
 #YourCode - Get a confusion matrix and accuracy
-CM, acc = my_confusion(Ctst, Cpreds[:,0])
+CM, acc = my_confusion(Ctst, Cpreds)
 
 #YourCode - Save the confusion matrix as "Task2/cm.mat".
 sio.savemat('cm.mat', {'cm': CM}, oned_as='row')

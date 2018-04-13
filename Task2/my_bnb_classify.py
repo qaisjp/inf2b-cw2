@@ -13,4 +13,6 @@ def my_bnb_classify(Xtrn, Ctrn, Xtst, threshold):
 
     #YourCode - naive Bayes classification with multivariate Bernoulli distributions
 
+    Cpreds = None
+
     return Cpreds
